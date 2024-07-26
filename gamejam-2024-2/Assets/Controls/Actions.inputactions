@@ -1,0 +1,34 @@
+{
+    "name": "Actions",
+    "maps": [
+        {
+            "name": "Game",
+            "id": "0bb7219a-5ae0-4304-a30c-c41697736cc6",
+            "actions": [
+                {
+                    "name": "Avancar",
+                    "type": "Button",
+                    "id": "ddbb8804-7bf0-465e-b32e-a2c60d3fd159",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                }
+            ],
+            "bindings": [
+                {
+                    "name": "",
+                    "id": "666c7887-0ce6-42ba-85e3-16a494a12f78",
+                    "path": "",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Avancar",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                }
+            ]
+        }
+    ],
+    "controlSchemes": []
+}
