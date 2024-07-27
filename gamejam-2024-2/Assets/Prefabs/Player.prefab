@@ -141,9 +141,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   speed: 12
   avancarSpeed: 18
-  modelo: {fileID: 0}
+  modelo: {fileID: 3757984863545860067}
   state: 0
-  tempoAvancando: 1
+  tempoAvancando: 0.25
 --- !u!143 &6641330734199713755
 CharacterController:
   m_ObjectHideFlags: 0
