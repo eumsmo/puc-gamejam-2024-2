@@ -97,10 +97,24 @@ public class Move : MonoBehaviour {
         float x = Input.GetAxis("Horizontal");
         float z = Input.GetAxis("Vertical");
         Vector3 move = transform.right * x + transform.forward * z;
+
+        if (move.magnitude > 1) {
+            move.Normalize();
+        }
+
+        if (controller.isGrounded) {
+            move.y = 0;
+        } else {
+            move.y += Physics.gravity.y * Time.deltaTime;
+        }
+
         controller.Move(move * speed * Time.deltaTime);
 
-        if (move != Vector3.zero) {
-            modelo.forward = move.normalized;
+        Vector3 dir = move.normalized;
+        dir.y = 0;
+
+        if (dir != Vector3.zero) {
+            modelo.forward = dir;
         }
     }
 
@@ -111,6 +125,17 @@ public class Move : MonoBehaviour {
             avancandoTimer = 0;
             state = PlayerState.Andando;
             correndo = true;
+        }
+    }
+
+    void OnCollisionEnter(Collision collision) {
+        if (state != PlayerState.Avancando) {
+            return;
+        }
+        
+        if (collision.gameObject.GetComponent<Avancavel>() != null) {
+            Avancavel avancavel = collision.gameObject.GetComponent<Avancavel>();
+            avancavel.HandleAvancado(collision);
         }
     }
 }
