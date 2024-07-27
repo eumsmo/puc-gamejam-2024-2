@@ -27,6 +27,7 @@ public class Move : MonoBehaviour {
 
     // Eventos
     public System.Action<float> onEstaminaChange;
+    public System.Action onAvancar;
     
 
 
@@ -70,6 +71,7 @@ public class Move : MonoBehaviour {
         avancandoTimer = tempoAvancando;
         estamina -= estaminaAoAvancar;
         onEstaminaChange?.Invoke(estamina);
+        onAvancar?.Invoke();
 
         return true;
     }
