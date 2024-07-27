@@ -138,11 +138,10 @@ public class Move : MonoBehaviour {
                 return;
             }
         }
-        
-        if (collision.gameObject.GetComponent<Projetil>() != null) {
-            state = PlayerState.Morto;
-            Destroy(collision.gameObject);
-            Debug.Log("ai");
-        }
+    }
+
+    public void Morre() {
+        state = PlayerState.Morto;
+        Debug.Log("Morri");
     }
 }

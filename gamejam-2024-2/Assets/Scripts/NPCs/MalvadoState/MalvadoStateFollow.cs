@@ -17,9 +17,12 @@ public class MalvadoStateFollow : MalvadoState {
     public void Update() {
         npcMalvado.agent.SetDestination(npcMalvado.targetPlayer.transform.position);
 
+        bool canSeePlayer = false;
+
         RaycastHit hit;
         if (Physics.Raycast(npcMalvado.transform.position, npcMalvado.targetPlayer.transform.position - npcMalvado.transform.position, out hit)) {
             if (hit.transform.CompareTag("Player")) {
+                canSeePlayer = true;
                 lostTimer = npcMalvado.maxTimePerdeuPlayer;
             } else {
                 lostTimer -= Time.deltaTime;
@@ -29,7 +32,7 @@ public class MalvadoStateFollow : MalvadoState {
             }
         }
 
-        if (Vector3.Distance(npcMalvado.transform.position, npcMalvado.targetPlayer.transform.position) <= npcMalvado.attackDistance) {
+        if (canSeePlayer && Vector3.Distance(npcMalvado.transform.position, npcMalvado.targetPlayer.transform.position) <= npcMalvado.attackDistance) {
             npcMalvado.SetState(npcMalvado.atirarState);
         }
 

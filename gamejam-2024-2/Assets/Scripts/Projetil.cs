@@ -18,4 +18,12 @@ public class Projetil : MonoBehaviour {
         direction = (target - transform.position).normalized;
         transform.rotation = Quaternion.LookRotation(direction);
     }
+
+    void OnCollisionEnter(Collision collision) {
+        if (collision.gameObject.CompareTag("Player")) {
+            collision.gameObject.GetComponent<Move>().Morre();
+        }
+
+        Destroy(gameObject);
+    }
 }
