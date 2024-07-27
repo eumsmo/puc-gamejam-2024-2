@@ -7,6 +7,7 @@ public enum PlayerState {
 }
 
 public class Move : MonoBehaviour {
+    Animator animator;
     CharacterController controller;
     public float speed = 12f, avancarSpeed = 24f, correndoSpeed = 18f;
     public Transform modelo, meioDoModelo;
@@ -34,6 +35,7 @@ public class Move : MonoBehaviour {
     // Start is called before the first frame update
     void Start() {
         controller = GetComponent<CharacterController>();
+        animator = GetComponentInChildren<Animator>();
 
         onEstaminaChange += (float estamina) => {
             UIController.instance.UpdateEstamina(estamina, estaminaMax);
@@ -70,6 +72,8 @@ public class Move : MonoBehaviour {
         avancandoDirection = modelo.forward;
         avancandoTimer = tempoAvancando;
         estamina -= estaminaAoAvancar;
+        animator.SetTrigger("Avancar");
+
         onEstaminaChange?.Invoke(estamina);
         onAvancar?.Invoke();
 
@@ -116,8 +120,13 @@ public class Move : MonoBehaviour {
         dir.y = 0;
 
         if (dir != Vector3.zero) {
+            animator.SetBool("Andando", true);
             modelo.forward = dir;
+        } else {
+            animator.SetBool("Andando", false);
         }
+
+        animator.SetBool("Correndo", correndo);
     }
 
     void Avancando() {
@@ -142,6 +151,6 @@ public class Move : MonoBehaviour {
 
     public void Morre() {
         state = PlayerState.Morto;
-        Debug.Log("Morri");
+        animator.SetTrigger("Morrer");
     }
 }

@@ -13,7 +13,8 @@ public class MalvadoStateSusto : MalvadoState {
     public void Enter() {
         npcMalvado.agent.isStopped = true;
         stunTimer = npcMalvado.stunTime;
-        // npcMalvado.animator.SetTrigger("Susto");
+        npcMalvado.animator.SetBool(npcMalvado.andandoBool, false);
+        npcMalvado.animator.SetTrigger(npcMalvado.sustoTrigger);
     }
 
     public void Update() {

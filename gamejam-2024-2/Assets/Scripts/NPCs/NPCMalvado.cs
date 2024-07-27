@@ -12,6 +12,7 @@ public interface MalvadoState {
 public class NPCMalvado : MonoBehaviour {
     public GameObject targetPost, targetPlayer;
     public NavMeshAgent agent;
+    public Animator animator;
 
     public MalvadoState lastState;
     public MalvadoState currentState;
@@ -30,6 +31,11 @@ public class NPCMalvado : MonoBehaviour {
     public GameObject projetilPrefab, saidaDoTiro;
     public float cooldownAfterTiro = 2f, cooldownBeforeTiro = 1f;
     public float stunTime = 2f;
+
+    [Header("Animacoes")]
+    public string acaoTrigger;
+    public string sustoTrigger;
+    public string andandoBool;
 
     void Start() {
         agent = GetComponent<NavMeshAgent>();

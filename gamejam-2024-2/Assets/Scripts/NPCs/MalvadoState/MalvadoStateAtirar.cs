@@ -13,7 +13,7 @@ public class MalvadoStateAtirar : MalvadoState {
 
     public void Enter() {
         npcMalvado.agent.isStopped = true;
-        //npcMalvado.animator.SetTrigger("Atirar");
+        npcMalvado.animator.SetBool(npcMalvado.andandoBool, false);
         timer = npcMalvado.cooldownBeforeTiro;
 
         
@@ -41,6 +41,7 @@ public class MalvadoStateAtirar : MalvadoState {
         projetilScript.SetTarget(targetable.meioDoModelo.position);
         atirou = true;
 
+        npcMalvado.animator.SetTrigger(npcMalvado.acaoTrigger);
         timer = npcMalvado.cooldownAfterTiro;
     }
 }

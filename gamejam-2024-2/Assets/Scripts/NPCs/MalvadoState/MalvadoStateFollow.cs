@@ -12,6 +12,7 @@ public class MalvadoStateFollow : MalvadoState {
 
     public void Enter() {
         lostTimer = npcMalvado.maxTimePerdeuPlayer;
+        npcMalvado.animator.SetBool(npcMalvado.andandoBool, true);
     }
 
     public void Update() {
@@ -39,6 +40,7 @@ public class MalvadoStateFollow : MalvadoState {
     }
 
     public void Exit() {
+        npcMalvado.animator.SetBool(npcMalvado.andandoBool, false);
         npcMalvado.agent.ResetPath();
     }
 }

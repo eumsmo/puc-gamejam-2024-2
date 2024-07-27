@@ -17,6 +17,8 @@ public class MalvadoSearchState : MalvadoState {
         if (npcMalvado.agent.destination == null) {
             npcMalvado.agent.SetDestination(npcMalvado.targetPost.transform.position);
         }
+
+        npcMalvado.animator.SetBool(npcMalvado.andandoBool, true);
     }
 
     public void Update() {
@@ -26,6 +28,7 @@ public class MalvadoSearchState : MalvadoState {
                 searchState = SearchState.WalkToPost;
                 npcMalvado.targetPost = npcMalvado.targetPost.GetComponent<NPCPost>().nextPost.gameObject;
                 npcMalvado.agent.SetDestination(npcMalvado.targetPost.transform.position);
+                npcMalvado.animator.SetBool(npcMalvado.andandoBool, true);
             }
         }
 
@@ -33,6 +36,7 @@ public class MalvadoSearchState : MalvadoState {
             NPCPost post = npcMalvado.targetPost.GetComponent<NPCPost>();
             waitingTime = post.stopInPost;
             searchState = SearchState.WaitInPost;
+            npcMalvado.animator.SetBool(npcMalvado.andandoBool, false);
         }
 
         Transform[] vistos = LineOfSight.Calculate(npcMalvado.saidaDoTiro.transform, npcMalvado.campoDeVisaoEmGraus, npcMalvado.distanciaDeVisao, npcMalvado.layerVisao);
