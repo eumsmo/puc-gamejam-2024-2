@@ -1,21 +1,51 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.InputSystem;
+
+public enum PlayerState { 
+    Andando, Avancando, Morto
+}
 
 public class Move : MonoBehaviour {
-    public CharacterController controller;
-    public float speed = 12f;
-
+    CharacterController controller;
+    public float speed = 12f, avancarSpeed = 18f;
     public Transform modelo;
+    /*[HideInInspector]*/ public PlayerState state = PlayerState.Andando;
+
+    // Avancando
+    Vector3 avancandoDirection;
+    public float tempoAvancando = 1f;
+    float avancandoTimer = 0;
 
 
     // Start is called before the first frame update
     void Start() {
-        
+        controller = GetComponent<CharacterController>();
+        GameManager.instance.inputActions.Player.Avancar.performed += Avancar;
     }
 
     // Update is called once per frame
     void Update() {
+        switch (state) {
+            case PlayerState.Andando:
+                Andando();
+                break;
+            case PlayerState.Avancando:
+                Avancando();
+                break;
+            case PlayerState.Morto:
+                break;
+        }
+    }
+
+    public void Avancar(InputAction.CallbackContext context) {
+        state = PlayerState.Avancando;
+        avancandoDirection = modelo.forward;
+        avancandoTimer = tempoAvancando;;
+    }
+
+    void Andando() {
         float x = Input.GetAxis("Horizontal");
         float z = Input.GetAxis("Vertical");
         Vector3 move = transform.right * x + transform.forward * z;
@@ -24,5 +54,18 @@ public class Move : MonoBehaviour {
         if (move != Vector3.zero) {
             modelo.forward = move.normalized;
         }
+    }
+
+    void Avancando() {
+        controller.Move(avancandoDirection * avancarSpeed * Time.deltaTime);
+        avancandoTimer -= Time.deltaTime;
+        if (avancandoTimer <= 0) {
+            avancandoTimer = 0;
+            state = PlayerState.Andando;
+        }
+    }
+
+    void OnDestroy() {
+        GameManager.instance.inputActions.Player.Avancar.performed -= Avancar;
     }
 }

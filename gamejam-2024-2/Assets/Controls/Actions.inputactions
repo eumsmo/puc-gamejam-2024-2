@@ -2,7 +2,7 @@
     "name": "Actions",
     "maps": [
         {
-            "name": "Game",
+            "name": "Player",
             "id": "0bb7219a-5ae0-4304-a30c-c41697736cc6",
             "actions": [
                 {
@@ -19,7 +19,7 @@
                 {
                     "name": "",
                     "id": "666c7887-0ce6-42ba-85e3-16a494a12f78",
-                    "path": "",
+                    "path": "<Keyboard>/space",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
