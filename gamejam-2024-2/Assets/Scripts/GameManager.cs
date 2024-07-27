@@ -1,11 +1,9 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.InputSystem;
 
 public class GameManager : MonoBehaviour {
     public static GameManager instance;
-    public Actions inputActions;
 
     void Awake() {
         if (instance == null) {
@@ -18,7 +16,5 @@ public class GameManager : MonoBehaviour {
 
     void Start() {
         Cursor.lockState = CursorLockMode.Locked;
-        inputActions = new Actions();
-        inputActions.Player.Enable();
     }
 }

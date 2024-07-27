@@ -140,7 +140,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 12
-  avancarSpeed: 18
+  avancarSpeed: 24
   modelo: {fileID: 3757984863545860067}
   state: 0
   tempoAvancando: 0.25

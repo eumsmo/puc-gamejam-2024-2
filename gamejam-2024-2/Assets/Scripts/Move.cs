@@ -1,7 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.InputSystem;
 
 public enum PlayerState { 
     Andando, Avancando, Morto
@@ -22,11 +21,14 @@ public class Move : MonoBehaviour {
     // Start is called before the first frame update
     void Start() {
         controller = GetComponent<CharacterController>();
-        GameManager.instance.inputActions.Player.Avancar.performed += Avancar;
     }
 
     // Update is called once per frame
     void Update() {
+        if (Input.GetKeyDown(KeyCode.Space)) {
+            Avancar();
+        }
+
         switch (state) {
             case PlayerState.Andando:
                 Andando();
@@ -39,7 +41,7 @@ public class Move : MonoBehaviour {
         }
     }
 
-    public void Avancar(InputAction.CallbackContext context) {
+    public void Avancar() {
         state = PlayerState.Avancando;
         avancandoDirection = modelo.forward;
         avancandoTimer = tempoAvancando;;
@@ -63,9 +65,5 @@ public class Move : MonoBehaviour {
             avancandoTimer = 0;
             state = PlayerState.Andando;
         }
-    }
-
-    void OnDestroy() {
-        GameManager.instance.inputActions.Player.Avancar.performed -= Avancar;
     }
 }

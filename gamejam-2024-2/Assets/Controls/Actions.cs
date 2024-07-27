@@ -35,6 +35,15 @@ public partial class @Actions: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""StopAvancar"",
+                    ""type"": ""Button"",
+                    ""id"": ""02cbde94-5239-4564-95f4-5b5f7384d58c"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -42,10 +51,21 @@ public partial class @Actions: IInputActionCollection2, IDisposable
                     ""name"": """",
                     ""id"": ""666c7887-0ce6-42ba-85e3-16a494a12f78"",
                     ""path"": ""<Keyboard>/space"",
-                    ""interactions"": """",
+                    ""interactions"": ""Press"",
                     ""processors"": """",
                     ""groups"": """",
                     ""action"": ""Avancar"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""d9a8501f-612e-496d-825a-c1d7e99f9d4f"",
+                    ""path"": ""<Keyboard>/space"",
+                    ""interactions"": ""Press(behavior=1)"",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""StopAvancar"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -57,6 +77,7 @@ public partial class @Actions: IInputActionCollection2, IDisposable
         // Player
         m_Player = asset.FindActionMap("Player", throwIfNotFound: true);
         m_Player_Avancar = m_Player.FindAction("Avancar", throwIfNotFound: true);
+        m_Player_StopAvancar = m_Player.FindAction("StopAvancar", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -119,11 +140,13 @@ public partial class @Actions: IInputActionCollection2, IDisposable
     private readonly InputActionMap m_Player;
     private List<IPlayerActions> m_PlayerActionsCallbackInterfaces = new List<IPlayerActions>();
     private readonly InputAction m_Player_Avancar;
+    private readonly InputAction m_Player_StopAvancar;
     public struct PlayerActions
     {
         private @Actions m_Wrapper;
         public PlayerActions(@Actions wrapper) { m_Wrapper = wrapper; }
         public InputAction @Avancar => m_Wrapper.m_Player_Avancar;
+        public InputAction @StopAvancar => m_Wrapper.m_Player_StopAvancar;
         public InputActionMap Get() { return m_Wrapper.m_Player; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -136,6 +159,9 @@ public partial class @Actions: IInputActionCollection2, IDisposable
             @Avancar.started += instance.OnAvancar;
             @Avancar.performed += instance.OnAvancar;
             @Avancar.canceled += instance.OnAvancar;
+            @StopAvancar.started += instance.OnStopAvancar;
+            @StopAvancar.performed += instance.OnStopAvancar;
+            @StopAvancar.canceled += instance.OnStopAvancar;
         }
 
         private void UnregisterCallbacks(IPlayerActions instance)
@@ -143,6 +169,9 @@ public partial class @Actions: IInputActionCollection2, IDisposable
             @Avancar.started -= instance.OnAvancar;
             @Avancar.performed -= instance.OnAvancar;
             @Avancar.canceled -= instance.OnAvancar;
+            @StopAvancar.started -= instance.OnStopAvancar;
+            @StopAvancar.performed -= instance.OnStopAvancar;
+            @StopAvancar.canceled -= instance.OnStopAvancar;
         }
 
         public void RemoveCallbacks(IPlayerActions instance)
@@ -163,5 +192,6 @@ public partial class @Actions: IInputActionCollection2, IDisposable
     public interface IPlayerActions
     {
         void OnAvancar(InputAction.CallbackContext context);
+        void OnStopAvancar(InputAction.CallbackContext context);
     }
 }
