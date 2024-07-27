@@ -1,5 +1,36 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!1 &204453436854506085
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1359915983435848603}
+  m_Layer: 0
+  m_Name: MeioDoModelo
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1359915983435848603
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 204453436854506085}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0.65, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 2242399110540687850}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1376616992206095864
 GameObject:
   m_ObjectHideFlags: 0
@@ -149,6 +180,8 @@ GameObject:
   - component: {fileID: 6847840495537687962}
   - component: {fileID: 6641330734199713755}
   - component: {fileID: 1964235138426074408}
+  - component: {fileID: 7761598483710227581}
+  - component: {fileID: 3917076760835870472}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -171,6 +204,7 @@ Transform:
   m_Children:
   - {fileID: 6155729323414930229}
   - {fileID: 3757984863545860067}
+  - {fileID: 1359915983435848603}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &6847840495537687962
@@ -189,6 +223,7 @@ MonoBehaviour:
   avancarSpeed: 24
   correndoSpeed: 18
   modelo: {fileID: 3757984863545860067}
+  meioDoModelo: {fileID: 1359915983435848603}
   state: 0
   avancarKey: 32
   estamina: 50
@@ -250,6 +285,35 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 112
   m_CollisionDetection: 0
+--- !u!208 &7761598483710227581
+NavMeshObstacle:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7480631621112423246}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Shape: 1
+  m_Extents: {x: 0.375, y: 0.5, z: 1}
+  m_MoveThreshold: 0.1
+  m_Carve: 0
+  m_CarveOnlyStationary: 1
+  m_Center: {x: 0, y: 0.5, z: 0.2}
+  m_TimeToStationary: 0.5
+--- !u!114 &3917076760835870472
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7480631621112423246}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0e9fcde8e98fc0e42b5acbf934245842, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  meioDoModelo: {fileID: 1359915983435848603}
 --- !u!1001 &7441914089772835057
 PrefabInstance:
   m_ObjectHideFlags: 0
