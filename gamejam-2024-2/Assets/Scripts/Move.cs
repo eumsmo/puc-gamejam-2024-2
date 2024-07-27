@@ -8,24 +8,43 @@ public enum PlayerState {
 
 public class Move : MonoBehaviour {
     CharacterController controller;
-    public float speed = 12f, avancarSpeed = 18f;
+    public float speed = 12f, avancarSpeed = 24f, correndoSpeed = 18f;
     public Transform modelo;
     /*[HideInInspector]*/ public PlayerState state = PlayerState.Andando;
 
     // Avancando
+    [Header("Avançar")]
+    public KeyCode avancarKey = KeyCode.Space;
     Vector3 avancandoDirection;
+    public float estamina = 50f, estaminaMax = 50f;
+    public float estaminaAoAvancar = 40f;
+    public float estaminaPorSegundoCorrida = 3f;
+    public float regenEstaminaPorSegundo = 5f;
     public float tempoAvancando = 1f;
     float avancandoTimer = 0;
+    bool correndo = false;
+
+
+    // Eventos
+    public System.Action<float> onEstaminaChange;
+    
 
 
     // Start is called before the first frame update
     void Start() {
         controller = GetComponent<CharacterController>();
+
+        onEstaminaChange += (float estamina) => {
+            UIController.instance.UpdateEstamina(estamina, estaminaMax);
+        };
+
+        estamina = estaminaMax;
+        onEstaminaChange?.Invoke(estamina);
     }
 
     // Update is called once per frame
     void Update() {
-        if (Input.GetKeyDown(KeyCode.Space)) {
+        if (Input.GetKeyDown(avancarKey)) {
             Avancar();
         }
 
@@ -41,13 +60,40 @@ public class Move : MonoBehaviour {
         }
     }
 
-    public void Avancar() {
+    public bool Avancar() {
+        if (estamina < estaminaAoAvancar) {
+            return false;
+        }
+
         state = PlayerState.Avancando;
         avancandoDirection = modelo.forward;
-        avancandoTimer = tempoAvancando;;
+        avancandoTimer = tempoAvancando;
+        estamina -= estaminaAoAvancar;
+        onEstaminaChange?.Invoke(estamina);
+
+        return true;
     }
 
     void Andando() {
+        if (correndo) {
+            if (((estamina < 0) || !Input.GetKey(avancarKey))) correndo = false;
+            else {
+                estamina -= estaminaPorSegundoCorrida * Time.deltaTime;
+                onEstaminaChange?.Invoke(estamina);
+            }
+        }
+
+        if (!correndo && estamina < estaminaMax) {
+            estamina += regenEstaminaPorSegundo * Time.deltaTime;
+            if (estamina > estaminaMax) {
+                estamina = estaminaMax;
+            }
+
+            onEstaminaChange?.Invoke(estamina);
+        }
+
+        float speed = correndo ? this.correndoSpeed : this.speed;
+
         float x = Input.GetAxis("Horizontal");
         float z = Input.GetAxis("Vertical");
         Vector3 move = transform.right * x + transform.forward * z;
@@ -64,6 +110,7 @@ public class Move : MonoBehaviour {
         if (avancandoTimer <= 0) {
             avancandoTimer = 0;
             state = PlayerState.Andando;
+            correndo = true;
         }
     }
 }
