@@ -15,7 +15,7 @@ public class MalvadoStateAtirar : MalvadoState {
         npcMalvado.agent.isStopped = true;
         npcMalvado.animator.SetBool(npcMalvado.andandoBool, false);
         timer = npcMalvado.cooldownBeforeTiro;
-
+        atirou = false;
         
     }
 

@@ -150,6 +150,8 @@ public class Move : MonoBehaviour {
     }
 
     public void Morre() {
+        if (state == PlayerState.Morto) return;
+        
         state = PlayerState.Morto;
         animator.SetTrigger("Morrer");
     }
