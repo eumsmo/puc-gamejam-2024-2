@@ -9,7 +9,7 @@ public enum PlayerState {
 public class Move : MonoBehaviour {
     CharacterController controller;
     public float speed = 12f, avancarSpeed = 24f, correndoSpeed = 18f;
-    public Transform modelo;
+    public Transform modelo, meioDoModelo;
     /*[HideInInspector]*/ public PlayerState state = PlayerState.Andando;
 
     // Avancando
@@ -131,13 +131,18 @@ public class Move : MonoBehaviour {
     }
 
     void OnCollisionEnter(Collision collision) {
-        if (state != PlayerState.Avancando) {
-            return;
+        if (state == PlayerState.Avancando) {
+            if (collision.gameObject.GetComponent<Avancavel>() != null) {
+                Avancavel avancavel = collision.gameObject.GetComponent<Avancavel>();
+                avancavel.HandleAvancado(collision);
+                return;
+            }
         }
         
-        if (collision.gameObject.GetComponent<Avancavel>() != null) {
-            Avancavel avancavel = collision.gameObject.GetComponent<Avancavel>();
-            avancavel.HandleAvancado(collision);
+        if (collision.gameObject.GetComponent<Projetil>() != null) {
+            state = PlayerState.Morto;
+            Destroy(collision.gameObject);
+            Debug.Log("ai");
         }
     }
 }
