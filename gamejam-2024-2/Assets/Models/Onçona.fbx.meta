@@ -123,7 +123,7 @@ ModelImporter:
       name: OncaArmature|Jumping
       takeName: OncaArmature|Jumping
       internalID: -4075212024669380421
-      firstFrame: 0
+      firstFrame: 40
       lastFrame: 105
       wrapMode: 0
       orientationOffsetY: 0
