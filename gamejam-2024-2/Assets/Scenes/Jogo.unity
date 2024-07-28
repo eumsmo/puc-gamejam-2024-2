@@ -6524,6 +6524,10 @@ PrefabInstance:
       propertyPath: m_AnchorMax.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4501453558846565121, guid: 103a95da2a8433b4b9c161d421acca1b, type: 3}
+      propertyPath: m_PlayAutomatically
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 6755793578523259094, guid: 103a95da2a8433b4b9c161d421acca1b, type: 3}
       propertyPath: m_Name
       value: SistemaGeral
