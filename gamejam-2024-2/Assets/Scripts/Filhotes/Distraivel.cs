@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class Distraivel : MonoBehaviour {
     public float raioDeDistracao = 3f;
+    public float offsetAproximacao = 1.5f;
     public LayerMask layerDoFilhote;
 
     void FixedUpdate() {
@@ -11,7 +12,7 @@ public class Distraivel : MonoBehaviour {
         foreach (Collider collider in colliders) {
             Filhote filhote = collider.GetComponent<Filhote>();
             if (filhote != null) {
-                filhote.TryToDistract(transform);
+                filhote.TryToDistract(transform, offsetAproximacao);
             }
         }
     }

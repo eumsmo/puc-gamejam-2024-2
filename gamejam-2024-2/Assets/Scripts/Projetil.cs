@@ -22,6 +22,8 @@ public class Projetil : MonoBehaviour {
     void OnCollisionEnter(Collision collision) {
         if (collision.gameObject.CompareTag("Player")) {
             collision.gameObject.GetComponent<Move>().Morre();
+        } else if (collision.gameObject.CompareTag("Filhote")) {
+            collision.gameObject.GetComponent<Filhote>().Die();
         }
 
         Destroy(gameObject);

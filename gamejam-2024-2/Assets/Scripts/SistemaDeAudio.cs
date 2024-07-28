@@ -23,13 +23,11 @@ public class SistemaDeAudio : MonoBehaviour {
     }
 
     void OnChaseChange(bool dif) {
-        Debug.Log(dif);
         if (dif) StartChase();
         else StopChase();
     }
 
     public IEnumerator StartChaseCoroutine() {
-        Debug.Log(adicionalChaseMusica);
         if (adicionalChaseMusica == null) {
             yield break;
         }
@@ -68,13 +66,47 @@ public class SistemaDeAudio : MonoBehaviour {
     }
 
     public void ChangeAudio(AudioClip clip) {
-        musicaFundo.clip = clip;
-        musicaFundo.Play();
+        AudioSource newAudio = gameObject.AddComponent<AudioSource>();
+        newAudio.clip = clip;
+        newAudio.volume = 0;
+        newAudio.loop = true;
+        newAudio.Play();
+
+        StartCoroutine(TransitionBetween(musicaFundo, newAudio, () => {
+            Destroy(musicaFundo);
+            musicaFundo = newAudio;
+        }));
     }
 
     public void ChangeChaseAudio(AudioClip clip) {
-        adicionalChaseMusica.clip = clip;
-        adicionalChaseMusica.Play();
-        adicionalChaseMusica.volume = 0;
+        AudioSource newAudio = gameObject.AddComponent<AudioSource>();
+        newAudio.clip = clip;
+        newAudio.volume = 0;
+        newAudio.loop = true;
+        newAudio.Play();
+
+        StartCoroutine(TransitionBetween(adicionalChaseMusica, newAudio, () => {
+            Destroy(adicionalChaseMusica);
+            adicionalChaseMusica = newAudio;
+        }));
+    }
+
+    IEnumerator TransitionBetween(AudioSource a, AudioSource b, System.Action afterCallback = null) {
+        float transitionTime = 2f;
+        float timer = 0;
+        float targetVolume = a.volume;
+
+        while (timer < transitionTime) {
+            timer += Time.deltaTime;
+            a.volume = Mathf.Lerp(targetVolume, 0, timer / transitionTime);
+            b.volume = Mathf.Lerp(0, targetVolume, timer / transitionTime);
+            yield return null;
+        }
+
+        a.Stop();
+
+        if (afterCallback != null) {
+            afterCallback();
+        }
     }
 }
