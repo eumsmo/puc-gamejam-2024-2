@@ -6525,6 +6525,10 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4501453558846565121, guid: 103a95da2a8433b4b9c161d421acca1b, type: 3}
+      propertyPath: m_Animation
+      value: 
+      objectReference: {fileID: 7400000, guid: a2b675bbf764f8a4d81da733ce3ae4c3, type: 2}
+    - target: {fileID: 4501453558846565121, guid: 103a95da2a8433b4b9c161d421acca1b, type: 3}
       propertyPath: m_PlayAutomatically
       value: 1
       objectReference: {fileID: 0}
