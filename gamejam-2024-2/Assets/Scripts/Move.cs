@@ -157,4 +157,16 @@ public class Move : MonoBehaviour {
 
         GameManager.instance.GameOver();
     }
+
+    //gizmos
+    void OnDrawGizmos() {
+        Gizmos.color = Color.red;
+
+        Filhote[] filhotes = FindObjectsOfType<Filhote>();
+
+        foreach (Filhote filhote in filhotes) {
+            //ray from player to filhote
+            Gizmos.DrawLine(transform.position, filhote.transform.position);
+        }
+    }
 }

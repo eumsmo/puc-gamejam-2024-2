@@ -8,6 +8,7 @@ public class UIController : MonoBehaviour {
     public Slider estaminaSlide;
     public Image telaPreta;
     public Animation animation;
+    public GameObject pausePanel;
 
     void Awake() {
         instance = this;
@@ -21,6 +22,16 @@ public class UIController : MonoBehaviour {
                 StartCoroutine(HideBlackScreenCoroutine());
         }
         
+    }
+
+    void Update() {
+        if (Input.GetKeyDown(KeyCode.Escape)) {
+            if (pausePanel.activeSelf) {
+                Resume();
+            } else {
+                Pause();
+            }
+        }
     }
 
     public void UpdateEstamina(float atual, float max) {
@@ -59,5 +70,24 @@ public class UIController : MonoBehaviour {
     public void ShowFire() {
         animation.gameObject.SetActive(true);
         animation.Play();
+    }
+
+    public void Pause() {
+        Time.timeScale = 0;
+        Cursor.lockState = CursorLockMode.None;
+        pausePanel.SetActive(true);
+    }
+
+    public void Resume() {
+        Time.timeScale = 1;
+        Cursor.lockState = CursorLockMode.Locked;
+        pausePanel.SetActive(false);
+    }
+
+    public void Menu() {
+        Time.timeScale = 1;
+        UnityEngine.SceneManagement.SceneManager.LoadScene("Menu");
+        Destroy(GameManager.instance.gameObject);
+        GameManager.instance = null;
     }
 }
