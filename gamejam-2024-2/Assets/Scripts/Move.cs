@@ -154,5 +154,7 @@ public class Move : MonoBehaviour {
         
         state = PlayerState.Morto;
         animator.SetTrigger("Morrer");
+
+        GameManager.instance.GameOver();
     }
 }
