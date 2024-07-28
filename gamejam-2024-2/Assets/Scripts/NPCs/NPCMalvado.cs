@@ -38,6 +38,8 @@ public class NPCMalvado : MonoBehaviour {
     public MalvadoStateAtirar atirarState;
     public MalvadoStateSusto sustoState;
 
+    public AudioSource sustoAudio, tiroAudio;
+
 
     [Header("IA Config")]
     public float maxTimePerdeuPlayer = 3f;
@@ -78,5 +80,6 @@ public class NPCMalvado : MonoBehaviour {
 
     public void TomarSusto() {
         SetState(sustoState);
+        sustoAudio.Play();
     }
 }

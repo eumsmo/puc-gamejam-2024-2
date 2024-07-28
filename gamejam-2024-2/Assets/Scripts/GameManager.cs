@@ -6,6 +6,10 @@ public class GameManager : MonoBehaviour {
     public static GameManager instance;
     public bool cameFromMenu = true;
 
+    public GameObject player { get {
+        return GameObject.FindGameObjectWithTag("Player");
+    }}
+
     void Awake() {
         if (instance == null) {
             instance = this;

@@ -32,6 +32,8 @@ public class UIController : MonoBehaviour {
                 Pause();
             }
         }
+
+        // GetClosestFilhoteDirection();
     }
 
     public void UpdateEstamina(float atual, float max) {
@@ -89,5 +91,24 @@ public class UIController : MonoBehaviour {
         UnityEngine.SceneManagement.SceneManager.LoadScene("Menu");
         Destroy(GameManager.instance.gameObject);
         GameManager.instance = null;
+    }
+
+    public void GetClosestFilhoteDirection() {
+        Vector3 closestDirection = Vector3.zero;
+        float closestDistance = Mathf.Infinity;
+
+        Filhote[] filhotes = FindObjectsOfType<Filhote>();
+
+        foreach (Filhote filhote in filhotes) {
+            float distance = Vector3.Distance(GameManager.instance.player.transform.position, filhote.transform.position);
+            if (distance < closestDistance) {
+                closestDistance = distance;
+                closestDirection = filhote.transform.position - GameManager.instance.player.transform.position;
+            }
+        }
+
+        Vector3 worldDirection = Vector3.forward;
+        float angle = Vector3.SignedAngle(worldDirection, closestDirection, Vector3.up);
+        Debug.Log(angle);
     }
 }

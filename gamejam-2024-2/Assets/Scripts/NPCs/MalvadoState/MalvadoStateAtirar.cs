@@ -35,10 +35,13 @@ public class MalvadoStateAtirar : MalvadoState {
     }
 
     void Atirar() {
+        npcMalvado.tiroAudio.Play();
+
         GameObject projetil = GameObject.Instantiate(npcMalvado.projetilPrefab, npcMalvado.saidaDoTiro.transform.position, Quaternion.identity);
         Projetil projetilScript = projetil.GetComponent<Projetil>();
         Targetable targetable = npcMalvado.targetPlayer.GetComponent<Targetable>();
         projetilScript.SetTarget(targetable.meioDoModelo.position);
+
         atirou = true;
 
         npcMalvado.animator.SetTrigger(npcMalvado.acaoTrigger);
