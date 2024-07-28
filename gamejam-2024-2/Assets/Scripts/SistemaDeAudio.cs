@@ -15,7 +15,7 @@ public class SistemaDeAudio : MonoBehaviour {
         }
 
         NPCMalvado.OnChaseChange += OnChaseChange;
-        if (NPCMalvado.IsOnChase) StartChaseCoroutine();
+        if (NPCMalvado.IsOnChase) StartChase();
     }
 
     void OnDestroy() {
@@ -23,12 +23,13 @@ public class SistemaDeAudio : MonoBehaviour {
     }
 
     void OnChaseChange(bool dif) {
-        // Debug.Log(dif);
-        if (dif) StartChaseCoroutine();
-        else StopChaseCoroutine();
+        Debug.Log(dif);
+        if (dif) StartChase();
+        else StopChase();
     }
 
     public IEnumerator StartChaseCoroutine() {
+        Debug.Log(adicionalChaseMusica);
         if (adicionalChaseMusica == null) {
             yield break;
         }
