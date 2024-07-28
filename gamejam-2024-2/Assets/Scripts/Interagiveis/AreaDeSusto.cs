@@ -34,7 +34,6 @@ public class AreaDeSusto : MonoBehaviour {
     }
 
     void HandleAvancado() {
-        Debug.Log("Susto");
         if (dentro) {
             onSusto?.Invoke();
         }
